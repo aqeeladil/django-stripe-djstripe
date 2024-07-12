@@ -1,0 +1,103 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}
+Djst Enterprises
+{% endblock %}
+
+{% block content %}
+<div class="text-center mt-4">
+    <h1>Welcome to Djst Enterprises</h1>
+    
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+            <h5>  Hello, {{ user.username }}! </h5>
+            {% if current_subscription %}
+                <p>Your current plan: {{ current_subscription.plan.nickname }}</p>
+            {% else %}
+                <p>You do not have an active subscription.</p>
+            {% endif %}
+        {% else %}
+        <p> You are not logged in. <a href="{% url 'login' %}"><b>Login here! </b></a></p>
+        {% endif %}
+        <div class="mt-4 mb-4">
+            <h2>Subscription Plans</h2>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Basic Plan</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>$10/month</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ BASIC_MONTHLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <p>$100/year</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ BASIC_YEARLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Premium Plan</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>$20/month</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ PREMIUM_MONTHLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <p>$200/year</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ PREMIUM_YEARLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Enterprise Plan</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>$30/month</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ ENTERPRISE_MONTHLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <p>$300/month</p>
+                        <form method="POST" action="{% url 'create_checkout_session' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="price_id" value="{{ ENTERPRISE_YEARLY }}">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+
+                            

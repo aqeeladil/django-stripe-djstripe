@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3 mt-4">
+    <h2>Your Subscription</h2>
+    {% if subscription %}
+        <p>Plan: {{ subscription.plan.nickname }}</p>
+        <p>Status: {{ subscription.status }}</p>
+        <form method="POST" action="{% url 'subscription_cancel' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Cancel Subscription</button>
+        </form>
+    {% else %}
+        <p>You do not have an active subscription.</p>
+    {% endif %}
+</div>
+{% endblock %}
